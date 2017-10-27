@@ -1,0 +1,41 @@
+@light-grey: rgb(238,238,238);
+
+@green-light:          rgb(198, 223, 140);
+@green-medium:         rgb(161, 196, 95);
+@green-dark:           rgb(90, 135, 57);
+@green-darker:         darken(spin(@green-dark, -10), 20%);
+
+@orange-light:         rgb(242, 199, 150);
+@orange-medium:        rgb(225, 158, 83);
+@orange-dark:          rgb(208, 124, 32);
+@orange-darker:        darken(spin(@orange-dark, -10), 30%);
+
+@red-light:            rgb(227, 171, 171);
+@red-medium:           rgb(210, 119, 119);
+@red-dark:             rgb(212, 98, 98);
+@red-darker:           darken(spin(@red-dark, -10), 40%);
+
+@blue-light:           rgb(142,194,236);
+@blue-medium:          rgb(75,134,180);
+@blue-dark:            rgb(63,94,120);
+@blue-darker:          rgb(37,69,94);
+
+
+// ====================================
+// Bootstrap branding
+// ====================================
+@state-success-text:             @green-darker;
+@state-success-bg:               @green-medium;
+@state-success-border:           @green-dark;
+
+@state-info-text:                @blue-darker;
+@state-info-bg:                  @blue-light;
+@state-info-border:              @blue-dark;
+
+@state-warning-text:             @orange-darker;
+@state-warning-bg:               @orange-medium;
+@state-warning-border:           @orange-dark;
+
+@state-danger-text:              @red-darker;
+@state-danger-bg:                @red-light;
+@state-danger-border:            @red-dark;
