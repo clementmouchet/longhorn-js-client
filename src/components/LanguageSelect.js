@@ -18,7 +18,7 @@ export default class LanguageSelect extends Component {
   fetchOkapiLanguages() {
     console.log('fetchOkapiLanguages', this.state.okapiLanguages);
     let self = this;
-    fetch(`${process.env.PUBLIC_URL}languages.json`)
+    fetch(`${process.env.PUBLIC_URL}/languages.json`)
       .then(response => response.json())
       .then((response) => {
         console.log('okapiLanguages', response);
