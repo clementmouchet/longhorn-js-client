@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import packageJson from '../../package.json';
 import Select2 from 'react-select2-wrapper';
 import $ from 'jquery'
 
@@ -19,7 +19,7 @@ export default class LanguageSelect extends Component {
   fetchOkapiLanguages() {
     console.log('fetchOkapiLanguages', this.state.okapiLanguages);
     let self = this;
-    fetch(window.location.href + 'languages.json')
+    fetch(packageJson.homepage + 'languages.json')
       .then(response => response.json())
       .then((response) => {
         console.log('okapiLanguages', response);

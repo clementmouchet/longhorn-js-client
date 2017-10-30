@@ -249,8 +249,8 @@ export default class ProjectsTabs extends Component {
       return null;
     }
 
-    if (fileList.length === 1 && s.contains(fileList[0].name, 'zip')) {
-      this.uploadInputFilesZip(id, fileList[0]);
+    if (s.contains(fileList[0].name, 'zip') || s.contains(fileList[0].name, 'rkp')) {
+      this.uploadInputZipFiles(id, fileList);
     } else {
       this.uploadInputFiles(id, fileList);
     }
@@ -322,8 +322,6 @@ export default class ProjectsTabs extends Component {
 
     let self = this;
     _.each(fileList, function (file) {
-      console.log(file);
-
       let data = new FormData();
       data.append('inputFile', file);
 
@@ -360,42 +358,45 @@ export default class ProjectsTabs extends Component {
     })
   }
 
-  uploadInputFilesZip(id, file) {
-    console.log('uploadInputFilesZip', 'Project ' + id, file);
+  uploadInputZipFiles(id, fileList) {
+    console.log('uploadInputZipFiles', 'Project ' + id, fileList);
+
     let self = this;
-    let data = new FormData();
-    data.append('inputFile', file);
+    _.each(fileList, function (file) {
+      let data = new FormData();
+      data.append('inputFile', file);
 
-    const url = self.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.INPUT_FILES_ZIP;
+      const url = self.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.INPUT_FILES_ZIP;
 
-    return fetch(url, {method: 'POST', body: data})
-      .then(this.handleFetchErrors)
-      .then(response => response.text())
-      .then((response) => {
-        console.log('uploadInputFilesZip', 'Project ' + id, file, data, response);
-        this.setState({
-          alerts: [...this.state.alerts, {
-            id: (new Date()).getTime(),
-            type: 'success',
-            message: `Project ${id}: Uploaded zip ${file.name}`,
-          }]
+      return fetch(url, {method: 'POST', body: data})
+        .then(self.handleFetchErrors)
+        .then(response => response.text())
+        .then((response) => {
+          console.log('uploadInputZipFiles', 'Project ' + id, file, data, response);
+          self.setState({
+            alerts: [...self.state.alerts, {
+              id: (new Date()).getTime(),
+              type: 'success',
+              message: `Project ${id}: Uploaded zip ${file.name}`,
+            }]
+          });
+          self.fetchProjectInputFiles(id);
+          self.refs.inputFiles.value = null;
+        })
+        .catch((err) => {
+          console.error('uploadInputZipFiles', 'Project ' + id, file, err);
+          self.setState({
+            alerts: [...self.state.alerts, {
+              id: (new Date()).getTime(),
+              type: 'danger',
+              headline: `Project ${id}: Failed to upload zip ${file.name}`,
+              message: `${err.toString()}, check the browser console for details.`
+            }]
+          });
+          self.fetchProjectInputFiles(id);
+          self.refs.inputFiles.value = null;
         });
-        this.fetchProjectInputFiles(id);
-        this.refs.inputFiles.value = null;
-      })
-      .catch((err) => {
-        console.error('uploadInputFilesZip', 'Project ' + id, file, err);
-        this.setState({
-          alerts: [...this.state.alerts, {
-            id: (new Date()).getTime(),
-            type: 'danger',
-            headline: `Project ${id}: Failed to upload zip ${file.name}`,
-            message: `${err.toString()}, check the browser console for details.`
-          }]
-        });
-        this.fetchProjectInputFiles(id);
-        this.refs.inputFiles.value = null;
-      });
+    })
   }
 
   executeTask(id) {
@@ -614,7 +615,7 @@ export default class ProjectsTabs extends Component {
               href={this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + project.id + LonghornApi.PATHS.OUTPUT_FILES + filename}
               target="_blank">
               {filename}
-              <Badge pullRight bsClass=""><i className="fa fa-download" aria-hidden="true"/></Badge>
+              <Badge pullRight><i className="fa fa-download" aria-hidden="true"/></Badge>
             </ListGroupItem>)
           )
         }
