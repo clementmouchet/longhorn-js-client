@@ -90,7 +90,7 @@ You can package & serve the content of the `build` folder (see [npm run build](#
 
 ### Environment Variables
 
-`REACT_APP_LONGHORN_URL` can be set to the url of your instance of Longhorn, otherwise it'll default to `http://localhost:8080/okapi-longhorn`
+`REACT_APP_LONGHORN_URL` can be set to the url of your instance of Longhorn, otherwise it'll default to `https://okapi-longhorn.herokuapp.com`
 
 ### Static Server
 

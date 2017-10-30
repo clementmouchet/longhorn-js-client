@@ -10,7 +10,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <NavBar/>
-        <ProjectsTabs longhornUrl={process.env.REACT_APP_LONGHORN_URL || 'http://localhost:8080/okapi-longhorn'}/>
+        <ProjectsTabs longhornUrl={process.env.REACT_APP_LONGHORN_URL || 'https://okapi-longhorn.herokuapp.com'}/>
       </div>
     );
   }
