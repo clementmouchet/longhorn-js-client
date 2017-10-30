@@ -17,7 +17,6 @@ import {AlertList} from "react-bs-notifier";
 import xml2js from 'react-native-xml2js';
 import _ from 'underscore';
 import s from 'underscore.string';
-import $ from 'jquery'
 import LanguageSelect from "./LanguageSelect";
 import LonghornApi from '../constants/LonghornApi';
 import Tooltips from '../constants/Tooltips';
@@ -95,7 +94,6 @@ export default class ProjectsTabs extends Component {
   }
 
   fetchProject(id) {
-    let self = this;
     let project = ProjectsTabs.getProjectInitialState();
     project.id = id;
 
@@ -105,7 +103,7 @@ export default class ProjectsTabs extends Component {
     this.fetchProjectOutputFiles(id);
 
     this.setState({
-      project: Object.assign(self.state.project, project),
+      project: Object.assign(this.state.project, project),
       alerts: []
     });
   }
@@ -241,9 +239,9 @@ export default class ProjectsTabs extends Component {
   }
 
   uploadInput(id, event) {
-    console.log('uploadInput', 'Project ' + id, $(event.target).prop('files'));
+    console.log('uploadInput', 'Project ' + id, event.target.files);
 
-    let fileList = $(event.target).prop('files');
+    let fileList = event.target.files;
 
     if (!fileList || _.isEmpty(fileList)) {
       return null;
@@ -257,10 +255,9 @@ export default class ProjectsTabs extends Component {
   }
 
   uploadBatchConfFile(id, event) {
-    console.log('uploadBatchConfFile', 'Project ' + id, $(event.target).prop('files'));
+    console.log('uploadBatchConfFile', 'Project ' + id, event.target.files);
 
-    let self = this;
-    let fileList = $(event.target).prop('files');
+    let fileList = event.target.files;
     let overrideStepParams = this.refs.overrideStepFormControl.refs.overrideStepParams.value;
 
 
@@ -276,7 +273,7 @@ export default class ProjectsTabs extends Component {
         data.append('overrideStepParams', overrideStepParams);
       }
 
-      const url = self.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.BATCH_CONFIGURATION;
+      const url = this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.BATCH_CONFIGURATION;
 
       return fetch(url, {method: 'POST', body: data})
         .then(this.handleFetchErrors)
@@ -302,7 +299,7 @@ export default class ProjectsTabs extends Component {
               message: `${err.toString()}, check the browser console for details.`
             }]
           });
-          self.refs.inputBatchConfFile.value = null;
+          this.refs.inputBatchConfFile.value = null;
         });
     } else {
       this.setState({
@@ -313,88 +310,86 @@ export default class ProjectsTabs extends Component {
           message: `The selected file is not a .bconf`
         }]
       });
-      self.refs.inputBatchConfFile.value = null;
+      this.refs.inputBatchConfFile.value = null;
     }
   }
 
   uploadInputFiles(id, fileList) {
     console.log('uploadInputFiles', 'Project ' + id, fileList);
 
-    let self = this;
-    _.each(fileList, function (file) {
+    [...fileList].map((file) => {
       let data = new FormData();
       data.append('inputFile', file);
 
-      const url = self.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.INPUT_FILES;
+      const url = this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.INPUT_FILES;
 
       return fetch(url + file.name, {method: 'PUT', body: data})
-        .then(self.handleFetchErrors)
+        .then(this.handleFetchErrors)
         .then(response => response.text())
         .then((response) => {
           console.log('uploadInputFiles', 'Project ' + id, file, data, response);
-          self.setState({
-            alerts: [...self.state.alerts, {
+          this.setState({
+            alerts: [...this.state.alerts, {
               id: (new Date()).getTime(),
               type: 'success',
               message: `Project ${id}: Uploaded input file ${file.name}`,
             }]
           });
-          self.fetchProjectInputFiles(id);
-          self.refs.inputFiles.value = null;
+          this.fetchProjectInputFiles(id);
+          this.refs.inputFiles.value = null;
         })
         .catch((err) => {
           console.error('uploadInputFiles', 'Project ' + id, file, err);
-          self.setState({
-            alerts: [...self.state.alerts, {
+          this.setState({
+            alerts: [...this.state.alerts, {
               id: (new Date()).getTime(),
               type: 'danger',
               headline: `Project ${id}: Failed to upload input file ${file.name}`,
               message: `${err.toString()}, check the browser console for details.`
             }]
           });
-          self.fetchProjectInputFiles(id);
-          self.refs.inputFiles.value = null;
-        });
+          this.fetchProjectInputFiles(id);
+          this.refs.inputFiles.value = null;
+        })
     })
   }
 
   uploadInputZipFiles(id, fileList) {
     console.log('uploadInputZipFiles', 'Project ' + id, fileList);
 
-    let self = this;
-    _.each(fileList, function (file) {
+    [...fileList].map((file) => {
       let data = new FormData();
       data.append('inputFile', file);
 
-      const url = self.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.INPUT_FILES_ZIP;
+      const url = this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.INPUT_FILES_ZIP;
 
       return fetch(url, {method: 'POST', body: data})
-        .then(self.handleFetchErrors)
+        .then(this.handleFetchErrors)
         .then(response => response.text())
         .then((response) => {
           console.log('uploadInputZipFiles', 'Project ' + id, file, data, response);
-          self.setState({
-            alerts: [...self.state.alerts, {
+          this.setState({
+            alerts: [...this.state.alerts, {
               id: (new Date()).getTime(),
               type: 'success',
               message: `Project ${id}: Uploaded zip ${file.name}`,
             }]
           });
-          self.fetchProjectInputFiles(id);
-          self.refs.inputFiles.value = null;
+          this.fetchProjectInputFiles(id);
+          this.refs.inputFiles.value = null;
         })
         .catch((err) => {
           console.error('uploadInputZipFiles', 'Project ' + id, file, err);
-          self.setState({
-            alerts: [...self.state.alerts, {
+          this.setState({
+            alerts: [...this.state.alerts, {
               id: (new Date()).getTime(),
               type: 'danger',
               headline: `Project ${id}: Failed to upload zip ${file.name}`,
               message: `${err.toString()}, check the browser console for details.`
             }]
           });
-          self.fetchProjectInputFiles(id);
-          self.refs.inputFiles.value = null;
+          this.fetchProjectInputFiles(id);
+          this.refs.inputFiles.value = null;
         });
     })
   }
@@ -405,15 +400,13 @@ export default class ProjectsTabs extends Component {
 
     console.log('executeTask', 'Project ' + id, sourceLanguageCode, targetLanguageCodes);
 
-    let self = this;
-
     let url = this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.TASKS_EXECUTE;
     if (!_.isEmpty(sourceLanguageCode) && !_.isEmpty(targetLanguageCodes) && !_.isArray(targetLanguageCodes)) {
       url = url + '/' + encodeURIComponent(sourceLanguageCode) + '/' + encodeURIComponent(targetLanguageCodes);
     } else if (!_.isEmpty(sourceLanguageCode) && !_.isEmpty(targetLanguageCodes) && _.isArray(targetLanguageCodes)) {
       let targets = [];
-      _.each(targetLanguageCodes, function (languageCode) {
-        targets.push('targets=' + encodeURIComponent(languageCode));
+      targetLanguageCodes.map((languageCode) => {
+        return targets.push('targets=' + encodeURIComponent(languageCode));
       });
       url = url + '/' + sourceLanguageCode + '?' + targets.join('&');
     }
@@ -430,7 +423,7 @@ export default class ProjectsTabs extends Component {
             message: `Project ${id}: Tasks executed`,
           }]
         });
-        self.fetchProjectOutputFiles(id);
+        this.fetchProjectOutputFiles(id);
       })
       .catch((err) => {
         console.error('executeTask fetch', err);
@@ -442,7 +435,7 @@ export default class ProjectsTabs extends Component {
             message: `${err.toString()}, check the browser console for details.`
           }]
         });
-        self.fetchProjectOutputFiles(id);
+        this.fetchProjectOutputFiles(id);
       });
   }
 
