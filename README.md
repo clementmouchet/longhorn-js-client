@@ -6,6 +6,12 @@ It supports all the API features of [Okapi Longhorn](http://okapiframework.org/w
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+## Demo
+
+A demo is accessible at [https://clementmouchet.github.io/longhorn-js-client](https://clementmouchet.github.io/longhorn-js-client)
+
+_using a build of Okapi Longhorn running on Heroku: [https://okapi-longhorn.herokuapp.com](https://okapi-longhorn.herokuapp.com)_
+
 ## User Guide
 
 The App is very simple, and highlights the 4 key steps.

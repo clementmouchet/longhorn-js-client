@@ -2,7 +2,7 @@
   "name": "longhorn-js-client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://clement.mouchet.github.io/longhorn-js-client",
+  "homepage": "https://clementmouchet.github.io/longhorn-js-client",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
@@ -23,7 +23,7 @@
     "underscore.string": "^3.3.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run-script build-less && react-scripts start",
     "build": "npm run-script build-less && react-scripts build",
     "start-less": "npm-watch",
     "build-less": "lessc src/less/App.less src/.css/App.css && lessc src/less/contrib.less src/.css/contrib.css",
