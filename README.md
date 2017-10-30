@@ -80,7 +80,7 @@ This section simply lists the output files, which can be downloaded individually
 
 ## Deployment Configuration
 
-You can package & serve the content of the `build` folder (see `npm run build` below) anywhere you like.
+You can package & serve the content of the `build` folder (see [npm run build](#npm-run-build) below) anywhere you like.
 
 ### Environment Variables
 
@@ -108,6 +108,8 @@ In the project directory, you can run:
 
 #### `npm start`
 
+    npm start
+
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
@@ -116,14 +118,13 @@ You will also see any lint errors in the console.
 
 #### `npm run start-less`
 
+    npm run start-less
+
 Runs a watcher for changes to the `.less` files, and triggers the `build-less` script when needed.
 
-#### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](#running-tests) for more information.
-
 #### `npm run build`
+
+    npm run build
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -135,9 +136,13 @@ See the section about [deployment](#deployment) for more information.
 
 #### `npm run build-less`
 
+    npm run build-less
+
 Compiles the less files to `.css` in the `src/.css` folder.
 
 #### `npm run eject`
+
+    npm run eject
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
