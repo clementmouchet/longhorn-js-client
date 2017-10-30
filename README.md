@@ -8,9 +8,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Demo
 
-A demo is accessible at [https://clementmouchet.github.io/longhorn-js-client](https://clementmouchet.github.io/longhorn-js-client)
+* A demo is accessible at [https://clementmouchet.github.io/longhorn-js-client](https://clementmouchet.github.io/longhorn-js-client) using GitHub gh-pages static deployment.
 
-_using a build of Okapi Longhorn running on Heroku: [https://okapi-longhorn.herokuapp.com](https://okapi-longhorn.herokuapp.com)_
+* Another demo is running on Heroku: [https://longhorn-js-client.herokuapp.com](https://longhorn-js-client.herokuapp.com) using a Node Server.
+
+* It's also accessible in a custom build of Okapi Longhorn running on Heroku: [https://okapi-longhorn.herokuapp.com](https://okapi-longhorn.herokuapp.com) using an embBedded Jetty Server.
+
+This demonstrates that the client can be deployed easily anywhere.
+
+_All clients are linked to the Longhorn API deployed [here](https://okapi-longhorn.herokuapp.com)_
 
 ## User Guide
 
