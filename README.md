@@ -78,6 +78,28 @@ Click the button to execute the pipeline.
 
 This section simply lists the output files, which can be downloaded individually or zipped.
 
+## Deployment Configuration
+
+You can package & serve the content of the `build` folder (see `npm run build` below) anywhere you like.
+
+### Environment Variables
+
+`REACT_APP_LONGHORN_URL` can be set to the url of your instance of Longhorn, otherwise it'll default to `http://localhost:8080/okapi-longhorn`
+
+### Static Server
+
+For environments using Node, the easiest way to handle this would be to install serve and let it handle the rest:
+
+    npm install -g serve
+
+    serve -s build
+
+The last command shown above will serve your static site on the port `5000`. Like many of serve’s internal settings, the port can be adjusted using the `-p` or `--port` flags.
+
+Run this command to get a full list of the options available:
+
+    serve -h
+
 ## Development
 
 ### npm package.json
