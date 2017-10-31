@@ -11,7 +11,7 @@ export default class Header extends Component {
       <Navbar inverse fixedTop>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href=${process.env.PUBLIC_URL} title={`Okapi Longhorn JS Client ${packageJson.version}`}>Okapi Longhorn JS Client</a>
+            <a href={process.env.PUBLIC_URL} title={`Okapi Longhorn JS Client ${packageJson.version}`}>Okapi Longhorn JS Client</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
