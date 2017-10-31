@@ -11,7 +11,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      longhornUrl: process.env.REACT_APP_LONGHORN_URL || 'https://okapi-longhorn.herokuapp.com'
+      longhornUrl: process.env.REACT_APP_LONGHORN_URL || 'https://cors-anywhere.herokuapp.com/https://okapi-longhorn.herokuapp.com'
     };
   }
 
