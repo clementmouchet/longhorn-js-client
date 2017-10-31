@@ -12,7 +12,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 * Another demo is running on Heroku: [https://longhorn-js-client.herokuapp.com](https://longhorn-js-client.herokuapp.com) using a Node Server.
 
-* It's also accessible in a custom build of Okapi Longhorn running on Heroku: [https://okapi-longhorn.herokuapp.com](https://okapi-longhorn.herokuapp.com) using an embBedded Jetty Server.
+* It's also accessible in a custom build of Okapi Longhorn running on Heroku: [https://okapi-longhorn.herokuapp.com](https://okapi-longhorn.herokuapp.com) using an embedded Jetty Server.
 
 This demonstrates that the client can be deployed easily anywhere.
 
