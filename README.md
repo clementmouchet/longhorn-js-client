@@ -90,7 +90,17 @@ You can package & serve the content of the `build` folder (see [npm run build](#
 
 ### Environment Variables
 
-`REACT_APP_LONGHORN_URL` can be set to the url of your instance of Longhorn, otherwise it'll default to `https://okapi-longhorn.herokuapp.com`
+`PUBLIC_URL` can be set to your base url (absolute or relative)
+
+`REACT_APP_LONGHORN_URL` can be set to the url of your instance of Longhorn (absolute or relative), 
+otherwise it'll default to `/okapi-longhorn`
+
+_Variables can be specifiled at runtime with a Node server or at build time for static deployments._
+
+For example. if your Longhorn API is deployed behind `/api` & the client is behind `/app` you can 
+use the following command:
+
+    REACT_APP_LONGHORN_URL=/api PUBLIC_URL=/app npm run build
 
 ### Static Server
 
