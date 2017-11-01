@@ -1,4 +1,8 @@
 export default class LonghornApi {
+
+  static DEFAULT_BASE_PATH = '/okapi-longhorn';
+
+
   static PATHS = {
     'PROJECTS': '/projects/',
     'NEW': 'new',
