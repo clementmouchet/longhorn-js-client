@@ -1,7 +1,7 @@
 {
   "name": "longhorn-js-client",
   "version": "0.1.0",
-  "license" : "MIT",
+  "license": "MIT",
   "homepage": "https://clementmouchet.github.io/longhorn-js-client",
   "dependencies": {
     "bootstrap": "^3.3.7",
@@ -17,7 +17,6 @@
     "react-native-xml2js": "^1.0.3",
     "react-scripts": "1.0.14",
     "react-select2-wrapper": "^1.0.4-beta5",
-    "select2": "^4.0.6-rc.0",
     "select2-bootstrap-theme": "0.1.0-beta.10",
     "underscore": "^1.8.3",
     "underscore.string": "^3.3.4"
@@ -29,7 +28,7 @@
     "build-less": "lessc src/less/App.less src/.css/App.css && lessc src/less/contrib.less src/.css/contrib.css",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "cross-env REACT_APP_LONGHORN_URL=https://cors-anywhere.herokuapp.com/https://okapi-longhorn.herokuapp.com npm run build",
     "deploy": "gh-pages -d build"
   },
   "watch": {
@@ -39,5 +38,8 @@
       ],
       "extensions": "less"
     }
+  },
+  "devDependencies": {
+    "cross-env": "^5.1.1"
   }
 }
