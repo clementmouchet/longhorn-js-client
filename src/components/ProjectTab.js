@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Col, Tab} from 'react-bootstrap';
+import {Button, Col, Tab} from 'react-bootstrap';
 
 import LonghornApi from '../constants/LonghornApi';
 
@@ -83,7 +83,14 @@ export default class ProjectTab extends Component {
         <Tab.Content>
           <Tab.Pane eventKey={"project_" + this.state.project.id}>
             <Col md={12}>
-              <h3>Project {this.state.project.id}</h3>
+              <h3>
+                <span>Project {this.state.project.id}</span>
+                <Button type="button"
+                        bsStyle="link"
+                        onClick={this.deleteProject.bind(this, this.state.project.id)}>
+                  <i className="fa fa-trash" aria-hidden="true"/> Delete
+                </Button>
+              </h3>
             </Col>
             <Col md={6}>
               <ProjectInputBatchConfFile project={this.state.project}

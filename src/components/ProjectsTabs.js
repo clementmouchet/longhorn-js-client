@@ -95,7 +95,7 @@ export default class ProjectsTabs extends Component {
           <Nav bsStyle="pills" stacked>
             <NavItem onClick={this.createProject.bind(this)}>
               New project
-              <Badge pullRight><i className="fa fa-folder" aria-hidden="true"/></Badge>
+              <Badge pullRight><i className="fa fa-folder-o" aria-hidden="true"/></Badge>
             </NavItem>
             {
               this.state.projects.sort((a, b) => a - b).reverse().map((projectId, index) => (
@@ -103,9 +103,7 @@ export default class ProjectsTabs extends Component {
                          key={"project_" + index}
                          onClick={this.refs.projectDetails.fetchProject.bind(this.refs.projectDetails, projectId)}>
                   Project {projectId}
-                  <Badge pullRight onClick={this.refs.projectDetails.deleteProject.bind(this.refs.projectDetails, projectId)}>
-                    <i className="fa fa-trash" aria-hidden="true"/>
-                  </Badge>
+                  <Badge pullRight><i className="fa fa-folder" aria-hidden="true" /></Badge>
                 </NavItem>
               ))
             }
