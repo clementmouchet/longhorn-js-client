@@ -93,7 +93,7 @@ You can package & serve the content of the `build` folder (see [npm run build](#
 `PUBLIC_URL` can be set to your base url (absolute or relative)
 
 `REACT_APP_LONGHORN_URL` can be set to the url of your instance of Longhorn (absolute or relative), 
-otherwise it'll default to `./okapi-longhorn`
+otherwise it'll default to `/okapi-longhorn`
 
 _Variables can be specifiled at runtime with a Node server or at build time for static deployments._
 
