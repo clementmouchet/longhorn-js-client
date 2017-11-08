@@ -1,6 +1,6 @@
 {
   "name": "longhorn-js-client",
-  "version": "0.1.1-dev",
+  "version": "0.1.1",
   "license": "MIT",
   "homepage": "https://clementmouchet.github.io/longhorn-js-client",
   "dependencies": {
