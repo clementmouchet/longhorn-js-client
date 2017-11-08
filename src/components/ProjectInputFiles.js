@@ -148,7 +148,7 @@ export default class ProjectInputFiles extends Component {
             <ListGroupItem
               key={`project_${this.props.project.id}_input_file_${index}`}
               href={this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + this.props.project.id + LonghornApi.PATHS.INPUT_FILES + filename}
-              target="_blank">
+              download={filename.split("/").pop()}>
               {filename}
               <Badge><i className="fa fa-download" aria-hidden="true"/></Badge>
             </ListGroupItem>)

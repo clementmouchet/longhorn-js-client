@@ -65,7 +65,7 @@ export default class ProjectOutputFiles extends Component {
             <ListGroupItem
               key={`project_${this.props.project.id}_output_file_${index}`}
               href={this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + this.props.project.id + LonghornApi.PATHS.OUTPUT_FILES + filename}
-              target="_blank">
+              download={filename.split("/").pop()}>
               {filename}
               <Badge pullRight><i className="fa fa-download" aria-hidden="true"/></Badge>
             </ListGroupItem>)

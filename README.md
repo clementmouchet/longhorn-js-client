@@ -170,8 +170,13 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Docker docker-compose.yml
 
-This spins up an Okapi Longhorn server and an Nginx server acting as a revers proxy allowing `CORS`. This is very 
-useful for development.
+This spins up an Okapi Longhorn server, a Node server for the app, 
+and a Nginx server acting as a revers proxy allowing `CORS`. This is very useful for development.
 
 The Longhorn workspace is mapped to `docker/Okapi-Longhorn-Files` so you can inspect it's content from your 
 development environment.
+
+    docker-compose up
+
+Will start the containers and you'll be able to access the app at [http://localhost:8080/](http://localhost:8080/) 
+and API at [http://localhost:8080/okapi-longhorn/projects/](http://localhost:8080/okapi-longhorn/projects/)

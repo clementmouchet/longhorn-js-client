@@ -11,11 +11,11 @@
     &.navbar-fixed-top {
       background-color: @blue-dark;
       border: none;
-      * {
+      .navbar-header a, .navbar-nav > li > a, .dropdown-toggle {
         color: white;
-      }
-      a:hover {
-        background-color: @blue-darker;
+        &:hover {
+          background-color: @blue-darker;
+        }
       }
     }
   }

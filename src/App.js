@@ -19,7 +19,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavBar/>
+        <NavBar longhornUrl={this.state.longhornUrl}/>
         <Tab.Container id="projects-container" className="projects-container">
           <ProjectsTabs ref="projectsTabs"
                         longhornUrl={this.state.longhornUrl}/>
