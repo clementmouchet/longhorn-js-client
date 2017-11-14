@@ -1,7 +1,7 @@
 {
   "name": "longhorn-js-client",
   "version": "0.1.2-dev",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "homepage": "https://clementmouchet.github.io/longhorn-js-client",
   "dependencies": {
     "bootstrap": "^3.3.7",
