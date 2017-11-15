@@ -20,7 +20,7 @@ export default class Header extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown title={`Version ${packageJson.version}`}>
+            <NavDropdown id="NavBarMenu" title={`Version ${packageJson.version}`}>
               <MenuItem href={this.props.longhornUrl + LonghornApi.PATHS.PROJECTS} target="blank">
                 Okapi Longhorn API
               </MenuItem>
