@@ -1,7 +1,9 @@
 {
   "name": "longhorn-js-client",
   "version": "0.1.2-dev",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
+  "description": "Okapi Longhorn JavaScript Client",
+  "repository": "git@github.com:clementmouchet/longhorn-js-client.git",
   "homepage": "https://clementmouchet.github.io/longhorn-js-client",
   "dependencies": {
     "bootstrap": "^3.3.7",
@@ -22,8 +24,10 @@
     "underscore.string": "^3.3.4"
   },
   "scripts": {
-    "start": "npm run-script build-less && react-scripts start",
-    "build": "npm run-script build-less && react-scripts build",
+    "prestart": "npm run build-less",
+    "start": "react-scripts start",
+    "prebuild": "npm run build-less",
+    "build": "react-scripts build",
     "start-less": "npm-watch",
     "build-less": "lessc src/less/App.less src/.css/App.css && lessc src/less/contrib.less src/.css/contrib.css",
     "test": "react-scripts test --env=jsdom",
