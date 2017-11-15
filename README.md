@@ -184,3 +184,6 @@ Will start the containers and you'll be able to access the app at
 
 and API at 
 * [http://localhost:8080/okapi-longhorn/projects/](http://localhost:8080/okapi-longhorn/projects/)
+
+And you can browse the files using Nginx autoindex at
+* [http://localhost:8080/Okapi-Longhorn-Files/](http://localhost:8080/Okapi-Longhorn-Files/)
