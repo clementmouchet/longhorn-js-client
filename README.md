@@ -178,5 +178,9 @@ development environment.
 
     docker-compose up
 
-Will start the containers and you'll be able to access the app at [http://localhost:8080/](http://localhost:8080/) 
-and API at [http://localhost:8080/okapi-longhorn/projects/](http://localhost:8080/okapi-longhorn/projects/)
+Will start the containers and you'll be able to access the app at 
+* [http://localhost:8080/](http://localhost:8080/) (Node development server, watching for changes in `src`)
+* [http://localhost:8080/longhorn-js-client/](http://localhost:8080/longhorn-js-client/) (Nginx Static deployment of the `build`)
+
+and API at 
+* [http://localhost:8080/okapi-longhorn/projects/](http://localhost:8080/okapi-longhorn/projects/)
