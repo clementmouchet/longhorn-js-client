@@ -8,8 +8,4 @@ import 'select2-bootstrap-theme/dist/select2-bootstrap.css';
 
 import App from './App';
 
-import registerServiceWorker from './registerServiceWorker';
-
 ReactDOM.render(<App/>, document.getElementById('root'));
-
-registerServiceWorker();
