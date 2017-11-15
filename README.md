@@ -138,6 +138,12 @@ You will also see any lint errors in the console.
 
 Runs a watcher for changes to the `.less` files, and triggers the `build-less` script when needed.
 
+#### `npm run start-all`
+
+    npm run start-all
+    
+Runs both the `npm start` & `npm run start-less` processes in parallel. It's useful for development.
+
 #### `npm run build`
 
     npm run build

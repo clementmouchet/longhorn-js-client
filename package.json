@@ -26,6 +26,7 @@
   "scripts": {
     "prestart": "npm run build-less",
     "start": "react-scripts start",
+    "start-all": "npm-run-all -p start-less start",
     "prebuild": "npm run build-less",
     "build": "react-scripts build",
     "start-less": "npm-watch",
@@ -44,6 +45,7 @@
     }
   },
   "devDependencies": {
+    "npm-run-all": "^4.1.2",
     "cross-env": "^5.1.1"
   }
 }
