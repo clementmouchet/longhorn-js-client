@@ -9,9 +9,12 @@
   <name>Okapi Longhorn JavaScript Client</name>
   <packaging>jar</packaging>
   <properties>
+    <maven-replacer-plugin.version>1.5.3</maven-replacer-plugin.version>
     <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
     <frontend-maven-plugin.nodeVersion>v8.5.0</frontend-maven-plugin.nodeVersion>
     <frontend-maven-plugin.npmVersion>5.5.1</frontend-maven-plugin.npmVersion>
+    <public-url>/okapi-longhorn</public-url>
+    <react-app-longhorn-url>/okapi-longhorn</react-app-longhorn-url>
   </properties>
 
   <build>
@@ -28,7 +31,7 @@
       <plugin>
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
-        <version>1.5.3</version>
+        <version>${maven-replacer-plugin.version}</version>
         <executions>
           <execution>
             <goals>
@@ -62,8 +65,8 @@
           <installDirectory>target</installDirectory>
 
           <environmentVariables>
-            <PUBLIC_URL>/okapi-longhorn</PUBLIC_URL>
-            <REACT_APP_LONGHORN_URL>/okapi-longhorn</REACT_APP_LONGHORN_URL>
+            <PUBLIC_URL>${public-url}</PUBLIC_URL>
+            <REACT_APP_LONGHORN_URL>${react-app-longhorn-url}</REACT_APP_LONGHORN_URL>
           </environmentVariables>
 
         </configuration>
