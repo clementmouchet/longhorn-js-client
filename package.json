@@ -33,7 +33,7 @@
     "build-less": "lessc src/less/App.less src/.css/App.css && lessc src/less/contrib.less src/.css/contrib.css",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "cross-env REACT_APP_LONGHORN_URL=https://cors-anywhere.herokuapp.com/https://okapi-longhorn.herokuapp.com npm run build",
+    "predeploy": "cross-env REACT_APP_LONGHORN_URL=https://cors-anywhere.herokuapp.com/https://okapi-longhorn.herokuapp.com/okapi-longhorn npm run build",
     "deploy": "gh-pages -d build"
   },
   "watch": {
