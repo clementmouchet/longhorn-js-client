@@ -7,6 +7,36 @@ import packageJson from '../../package.json';
 
 export default class Header extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: {
+        name: null,
+        version: "Unknown"
+      },
+    };
+  };
+
+  componentDidMount() {
+    this.fetchOkapiLonghornStatus();
+  }
+
+  fetchOkapiLonghornStatus() {
+    console.log('fetchOkapiLonghornStatus', this.state.status);
+    let self = this;
+    fetch(`${this.props.longhornUrl}/status.json`)
+      .then(response => response.json())
+      .then((response) => {
+        console.log('okapiLanguages', response);
+        self.setState({
+          status: response,
+        });
+      })
+      .catch((err) => {
+        console.error('fetchOkapiLonghornStatus', err)
+      });
+  }
+
   render() {
     return (
       <Navbar inverse fixedTop>
@@ -20,7 +50,17 @@ export default class Header extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown id="NavBarMenu" title={`Version ${packageJson.version}`}>
+            <NavDropdown id="NavBarMenu" title="Info">
+              <MenuItem header>Versions</MenuItem>
+              <MenuItem disabled className="clearfix">
+                <span className="pull-left">Client</span>
+                <strong className="pull-right">{packageJson.version}</strong>
+              </MenuItem>
+              <MenuItem disabled className="clearfix">
+                <span className="pull-left">API</span>
+                <strong className="pull-right">{this.state.status.version}</strong>
+              </MenuItem>
+              <MenuItem divider />
               <MenuItem href={this.props.longhornUrl + LonghornApi.PATHS.PROJECTS} target="blank">
                 Okapi Longhorn API
               </MenuItem>

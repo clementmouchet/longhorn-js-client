@@ -27,7 +27,7 @@ export default class LanguageSelect extends Component {
         });
       })
       .catch((err) => {
-        console.log('fetchOkapiLanguages', err)
+        console.error('fetchOkapiLanguages', err)
       });
   }
 
