@@ -9,3 +9,10 @@ import 'select2-bootstrap-theme/dist/select2-bootstrap.css';
 import App from './App';
 
 ReactDOM.render(<App/>, document.getElementById('root'));
+
+// Disable the service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.ready.then(registration => {
+    return registration.unregister();
+  });
+}
