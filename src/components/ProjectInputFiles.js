@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Badge, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Badge, Button, ListGroup, ListGroupItem, ProgressBar} from 'react-bootstrap';
 import xml2js from 'react-native-xml2js';
 import _ from 'underscore';
 import s from 'underscore.string';
@@ -8,6 +8,19 @@ import LonghornApi from '../constants/LonghornApi';
 
 
 export default class ProjectInputFiles extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    };
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      loading: false
+    });
+  }
 
   handleFetchErrors(response) {
     if (!response.ok) {
@@ -22,12 +35,20 @@ export default class ProjectInputFiles extends Component {
   fetchProjectInputFiles(id) {
     let self = this;
     let project = {};
+
+    this.setState({
+      loading: true
+    });
+
     return fetch(this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.INPUT_FILES)
       .then(this.handleFetchErrors)
       .then(response => response.text())
       .then((response) => {
         xml2js.parseString(response, function (err, result) {
           console.debug('fetchProjectInputFiles result', result);
+          self.setState({
+            loading: false
+          });
           if (_.has(result, 'l') && _.has(result.l, 'e')) {
             self.props.project.inputFiles = result.l.e;
             self.setState({
@@ -41,6 +62,9 @@ export default class ProjectInputFiles extends Component {
       })
       .catch((err) => {
         console.error('fetchProjectInputFiles', err);
+        this.setState({
+          loading: false
+        });
         this.props.alertList.error({
           headline: `Project ${id}: Failed to fetch project input files`,
           message: `${err.toString()}, check the browser console for details.`
@@ -135,14 +159,21 @@ export default class ProjectInputFiles extends Component {
           <strong>&#9313;</strong> Upload input files or Okapi work pack
           <Badge pullRight bsClass=""><i className="fa fa-files-o" aria-hidden="true"/></Badge>
         </ListGroupItem>
-        <Button componentClass="div" block bsStyle="primary" bsSize="large" className="btn-file">
-          <input type="file"
-                 multiple
-                 className="pull-left"
-                 ref="inputFiles"
-                 onChange={this.uploadInput.bind(this, this.props.project.id)}/>
-          Select Input File(s)
-        </Button>
+        {
+          !this.state.loading &&
+          <Button componentClass="div" block bsStyle="primary" bsSize="large" className="btn-file" disabled={this.state.loading}>
+            <input type="file"
+                   multiple
+                   className="pull-left"
+                   ref="inputFiles"
+                   onChange={this.uploadInput.bind(this, this.props.project.id)}/>
+            Select Input File(s)
+          </Button>
+        }
+        {
+          this.state.loading &&
+          <ProgressBar ref="progressBar" active={true} now={100} striped={true} label={'Loading Input Files'} />
+        }
         {
           this.props.project.inputFiles.map((filename, index) => (
             <ListGroupItem

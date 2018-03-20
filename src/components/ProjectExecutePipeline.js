@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Badge, Button, ListGroup, ListGroupItem, OverlayTrigger} from 'react-bootstrap';
+import {Badge, Button, ListGroup, ListGroupItem, OverlayTrigger, ProgressBar} from 'react-bootstrap';
 import _ from 'underscore';
 
 import LonghornApi from '../constants/LonghornApi';
@@ -12,8 +12,17 @@ export default class ProjectExecutePipeline extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      okapiLanguages: []
+      okapiLanguages: [],
+      processing: false,
+      failed: false
     };
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      processing: false,
+      failed: false
+    });
   }
 
   handleFetchErrors(response) {
@@ -43,23 +52,35 @@ export default class ProjectExecutePipeline extends Component {
       url = `${url}/${encodeURIComponent(sourceLanguageCode)}?${targets.join('&')}`;
     }
 
+    this.setState({
+      processing: true,
+      failed: false
+    });
+
     return fetch(url, {method: 'POST'})
       .then(this.handleFetchErrors)
       .then(response => response.text())
       .then((response) => {
         console.log('executePipeline result', response);
+        this.setState({
+          processing: false
+        });
         this.props.alertList.confirm({
           message: `Project ${id}: Tasks executed`,
         });
-        this.props.projectTab.refs.projectOutputFiles.fetchProjectOutputFiles(id);
+        this.props.projectTab.refs.projectOutputFiles.fetchProjectOutputFiles(this.props.project.id);
       })
       .catch((err) => {
         console.error('executePipeline fetch', err);
+        this.setState({
+          processing: false,
+          failed: true
+        });
         this.props.alertList.error({
           headline: `Project ${id}: Failed to execute tasks`,
           message: `${err.toString()}, check the browser console for details.`
         });
-        this.props.projectTab.refs.projectOutputFiles.fetchProjectOutputFiles(id);
+        this.props.projectTab.refs.projectOutputFiles.fetchProjectOutputFiles(this.props.project.id);
       });
   }
 
@@ -81,9 +102,17 @@ export default class ProjectExecutePipeline extends Component {
             <LanguageSelect ref="targetLanguageSelect" multiple={true} inputRef="targetLanguageCodes"/>
           </ListGroupItem>
         </OverlayTrigger>
-        <Button bsStyle="primary" bsSize="large" block onClick={this.executePipeline.bind(this, this.props.project.id)}>
-          Execute pipeline
-        </Button>
+        {
+          !this.state.processing &&
+          <Button bsStyle={this.state.failed ? "danger" : "primary"} bsSize="large" block
+                  onClick={this.executePipeline.bind(this, this.props.project.id)}>
+            {this.state.failed ? 'Pipeline failed, please check console logs' : 'Execute pipeline'}
+          </Button>
+        }
+        {
+          this.state.processing &&
+          <ProgressBar ref="progressBar" bsStyle={this.state.failed ? 'danger' : undefined} active={this.state.processing} now={100} striped={this.state.processing} label={'Executing pipeline'} />
+        }
       </ListGroup>
     );
   }

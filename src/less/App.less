@@ -1,4 +1,6 @@
 @import "variables";
+// bootstrap mixins
+@import "../../node_modules/bootstrap/less/mixins";
 
 .App {
 
@@ -59,6 +61,15 @@
         }
       }
 
+    }
+  }
+
+  .progress {
+    height: 100%;
+    cursor: progress;
+    .progress-bar {
+      vertical-align: middle;
+      .button-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @line-height-large; @btn-border-radius-large);
     }
   }
 }

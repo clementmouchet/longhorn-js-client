@@ -7,7 +7,8 @@ import {
   FormGroup,
   ListGroup,
   ListGroupItem,
-  OverlayTrigger
+  OverlayTrigger,
+  ProgressBar
 } from 'react-bootstrap';
 import _ from 'underscore';
 import s from 'underscore.string';
@@ -22,8 +23,16 @@ export default class ProjectInputBatchConfFile extends Component {
     super(props);
 
     this.state = {
-      stepContainerOpen: false
+      stepContainerOpen: false,
+      loading: false
     };
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      stepContainerOpen: false,
+      loading: false
+    });
   }
 
   handleFetchErrors(response) {
@@ -57,11 +66,18 @@ export default class ProjectInputBatchConfFile extends Component {
 
       const url = this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.BATCH_CONFIGURATION;
 
+      this.setState({
+        loading: true
+      });
+
       return fetch(url, {method: 'POST', body: data})
         .then(this.handleFetchErrors)
         .then(response => response.text())
         .then((response) => {
           console.log('uploadBatchConfFile', 'Project ' + id, file, data, response);
+          this.setState({
+            loading: false
+          });
           this.props.alertList.confirm({
             message: `Project ${id}: Uploaded BCONF ${file.name}`,
           });
@@ -69,6 +85,9 @@ export default class ProjectInputBatchConfFile extends Component {
         })
         .catch((err) => {
           console.error('uploadBatchConfFile', 'Project ' + id, file, err);
+          this.setState({
+            loading: false
+          });
           this.props.alertList.error({
             headline: `Project ${id}: Failed to upload BCONF ${file.name}`,
             message: `${err.toString()}, check the browser console for details.`
@@ -127,12 +146,13 @@ export default class ProjectInputBatchConfFile extends Component {
             </Collapse>
           </ListGroupItem>
         </OverlayTrigger>
-        <Button componentClass="div" block bsStyle="primary" bsSize="large" className="btn-file">
+        <Button componentClass="div" block bsStyle="primary" bsSize="large" className="btn-file" disabled={this.state.loading}>
           <input type="file"
                  ref="inputBatchConfFile"
                  onChange={this.uploadBatchConfFile.bind(this, this.props.project.id)}/>
           Select Batch Configuration File
         </Button>
+        {this.state.loading && <ProgressBar ref="progressBar" active={true} now={100} striped={true} label={'Uploading'} />}
       </ListGroup>
 
     );

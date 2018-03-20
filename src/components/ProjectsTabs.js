@@ -99,8 +99,8 @@ export default class ProjectsTabs extends Component {
             </NavItem>
             {
               this.state.projects.sort((a, b) => a - b).reverse().map((projectId, index) => (
-                <NavItem eventKey={"project_" + projectId}
-                         key={"project_" + index}
+                <NavItem eventKey={`project_${projectId}`}
+                         key={`project_${index}`}
                          onClick={this.refs.projectDetails.fetchProject.bind(this.refs.projectDetails, projectId)}>
                   Project {projectId}
                   <Badge pullRight><i className="fa fa-folder" aria-hidden="true" /></Badge>
