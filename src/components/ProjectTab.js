@@ -44,7 +44,7 @@ export default class ProjectTab extends Component {
       .then(this.handleFetchErrors)
       .then(response => response.text())
       .then((response) => {
-        console.log('deleteProject result', response);
+        console.debug('deleteProject result', response);
         this.setState({
           project: project
         });
@@ -66,7 +66,7 @@ export default class ProjectTab extends Component {
     let project = ProjectTab.getProjectInitialState();
     project.id = id;
 
-    console.log('fetchProject', this.state.project);
+    console.debug('fetchProject', this.state.project);
 
     this.refs.projectInputFiles.fetchProjectInputFiles(id);
     this.refs.projectOutputFiles.fetchProjectOutputFiles(id);

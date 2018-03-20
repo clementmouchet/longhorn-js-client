@@ -33,7 +33,7 @@ export default class ProjectsTabs extends Component {
   }
 
   fetchProjects() {
-    console.log('fetchProjects', this.state.projects);
+    console.debug('fetchProjects', this.state.projects);
     let self = this;
     let projects = [];
     fetch(this.props.longhornUrl + LonghornApi.PATHS.PROJECTS)
@@ -41,7 +41,7 @@ export default class ProjectsTabs extends Component {
       .then(response => response.text())
       .then((response) => {
         xml2js.parseString(response, function (err, result) {
-          console.log('fetchProjects result', result);
+          console.debug('fetchProjects result', result);
           if (_.has(result, 'l') && _.has(result.l, 'e')) {
             projects = result.l.e;
           }
@@ -68,7 +68,7 @@ export default class ProjectsTabs extends Component {
       .then(this.handleFetchErrors)
       .then(response => response.text())
       .then((response) => {
-        console.log('createProject result', response);
+        console.debug('createProject result', response);
         this.setState({
           project: project,
         });

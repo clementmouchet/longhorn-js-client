@@ -22,18 +22,18 @@ export default class Header extends Component {
   }
 
   fetchOkapiLonghornStatus() {
-    console.log('fetchOkapiLonghornStatus', this.state.status);
+    console.debug('fetchOkapiLonghornStatus fetching', this.state.status);
     let self = this;
     fetch(`${this.props.longhornUrl}/status.json`)
       .then(response => response.json())
       .then((response) => {
-        console.log('okapiLanguages', response);
+        console.debug('fetchOkapiLonghornStatus fetched', response);
         self.setState({
           status: response,
         });
       })
       .catch((err) => {
-        console.error('fetchOkapiLonghornStatus', err)
+        console.warn('fetchOkapiLonghornStatus failed', err)
       });
   }
 

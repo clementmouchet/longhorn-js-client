@@ -26,7 +26,7 @@ export default class ProjectOutputFiles extends Component {
       .then(response => response.text())
       .then((response) => {
         xml2js.parseString(response, function (err, result) {
-          console.log('fetchProjectOutputFiles result', result);
+          console.debug('fetchProjectOutputFiles result', result);
           if (_.has(result, 'l') && _.has(result.l, 'e')) {
             project.outputFiles = result.l.e;
             self.setState({

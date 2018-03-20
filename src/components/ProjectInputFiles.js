@@ -27,7 +27,7 @@ export default class ProjectInputFiles extends Component {
       .then(response => response.text())
       .then((response) => {
         xml2js.parseString(response, function (err, result) {
-          console.log('fetchProjectInputFiles result', result);
+          console.debug('fetchProjectInputFiles result', result);
           if (_.has(result, 'l') && _.has(result.l, 'e')) {
             self.props.project.inputFiles = result.l.e;
             self.setState({
@@ -49,7 +49,7 @@ export default class ProjectInputFiles extends Component {
   }
 
   uploadInput(id, event) {
-    console.log('uploadInput', 'Project ' + id, event.target.files);
+    console.debug('uploadInput', 'Project ' + id, event.target.files);
 
     let fileList = event.target.files;
 
@@ -65,7 +65,7 @@ export default class ProjectInputFiles extends Component {
   }
 
   uploadInputFiles(id, fileList) {
-    console.log('uploadInputFiles', 'Project ' + id, fileList);
+    console.debug('uploadInputFiles', 'Project ' + id, fileList);
 
     [...fileList].map((file) => {
       let data = new FormData();
@@ -97,7 +97,7 @@ export default class ProjectInputFiles extends Component {
   }
 
   uploadInputZipFiles(id, fileList) {
-    console.log('uploadInputZipFiles', 'Project ' + id, fileList);
+    console.debug('uploadInputZipFiles', 'Project ' + id, fileList);
 
     [...fileList].map((file) => {
       let data = new FormData();
@@ -109,7 +109,7 @@ export default class ProjectInputFiles extends Component {
         .then(this.handleFetchErrors)
         .then(response => response.text())
         .then((response) => {
-          console.log('uploadInputZipFiles', 'Project ' + id, file, data, response);
+          console.debug('uploadInputZipFiles', 'Project ' + id, file, data, response);
           this.props.alertList.confirm({
             message: `Project ${id}: Uploaded zip ${file.name}`
           });
