@@ -12,13 +12,15 @@ export default class ProjectInputFiles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true
+      loading: true,
+      uploads: []
     };
   }
 
   componentWillReceiveProps() {
     this.setState({
-      loading: false
+      loading: false,
+      uploads: []
     });
   }
 
@@ -97,25 +99,27 @@ export default class ProjectInputFiles extends Component {
 
       const url = this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.INPUT_FILES;
 
+      this.addUploadingFile(file.name);
+
       return fetch(url + file.name, {method: 'PUT', body: data})
         .then(this.handleFetchErrors)
         .then(response => response.text())
         .then((response) => {
-          console.log('uploadInputFiles', 'Project ' + id, file, data, response);
+          console.debug('uploadInputFiles', 'Project ' + id, file, data, response);
+          this.removeUploadingFile(file.name);
           this.props.alertList.confirm({
             message: `Project ${id}: Uploaded input file ${file.name}`,
           });
           this.fetchProjectInputFiles(id);
-          this.refs.inputFiles.value = null;
         })
         .catch((err) => {
           console.error('uploadInputFiles', 'Project ' + id, file, err);
+          this.removeUploadingFile(file.name);
           this.props.alertList.error({
             headline: `Project ${id}: Failed to upload input file ${file.name}`,
             message: `${err.toString()}, check the browser console for details.`
           });
           this.fetchProjectInputFiles(id);
-          this.refs.inputFiles.value = null;
         })
     })
   }
@@ -129,27 +133,40 @@ export default class ProjectInputFiles extends Component {
 
       const url = this.props.longhornUrl + LonghornApi.PATHS.PROJECTS + id + LonghornApi.PATHS.INPUT_FILES_ZIP;
 
+      this.addUploadingFile(file.name);
+
       return fetch(url, {method: 'POST', body: data})
         .then(this.handleFetchErrors)
         .then(response => response.text())
         .then((response) => {
           console.debug('uploadInputZipFiles', 'Project ' + id, file, data, response);
+          this.removeUploadingFile(file.name);
           this.props.alertList.confirm({
             message: `Project ${id}: Uploaded zip ${file.name}`
           });
           this.fetchProjectInputFiles(id);
-          this.refs.inputFiles.value = null;
         })
         .catch((err) => {
           console.error('uploadInputZipFiles', 'Project ' + id, file, err);
+          this.removeUploadingFile(file.name);
           this.props.alertList.error({
             headline: `Project ${id}: Failed to upload zip ${file.name}`,
             message: `${err.toString()}, check the browser console for details.`
           });
           this.fetchProjectInputFiles(id);
-          this.refs.inputFiles.value = null;
         });
     })
+  }
+
+  addUploadingFile(fileName) {
+    this.setState(prevState => ({
+      uploads: [...prevState.uploads, fileName]
+    }));
+  }
+
+  removeUploadingFile(fileName) {
+    let uploads = this.state.uploads.filter(upload => upload !== fileName);
+    this.setState({uploads: uploads});
   }
 
   render() {
@@ -161,7 +178,8 @@ export default class ProjectInputFiles extends Component {
         </ListGroupItem>
         {
           !this.state.loading &&
-          <Button componentClass="div" block bsStyle="primary" bsSize="large" className="btn-file" disabled={this.state.loading}>
+          <Button componentClass="div" block bsStyle="primary" bsSize="large" className="btn-file"
+                  disabled={this.state.loading}>
             <input type="file"
                    multiple
                    className="pull-left"
@@ -172,7 +190,7 @@ export default class ProjectInputFiles extends Component {
         }
         {
           this.state.loading &&
-          <ProgressBar ref="progressBar" active={true} now={100} striped={true} label={'Loading Input Files'} />
+          <ProgressBar ref="progressBar" active={true} now={100} striped={true} label={'Loading Input Files'}/>
         }
         {
           this.props.project.inputFiles.map((filename, index) => (
@@ -182,8 +200,19 @@ export default class ProjectInputFiles extends Component {
               download={filename.split("/").pop()}>
               {filename}
               <Badge><i className="fa fa-download" aria-hidden="true"/></Badge>
-            </ListGroupItem>)
-          )
+            </ListGroupItem>
+          ))
+        }
+        {
+          this.state.uploads.length > 0 &&
+          this.state.uploads.map((filename, index) => (
+            <ListGroupItem
+              key={`project_${this.props.project.id}_upload_file_${filename}_${index}`}
+              disabled={true}>
+              <i>{filename}</i>
+              <Badge title='Uploading'><i className="fa fa-upload faa-flash animated" aria-hidden="true"/></Badge>
+            </ListGroupItem>
+          ))
         }
       </ListGroup>
     );

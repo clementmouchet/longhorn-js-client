@@ -62,17 +62,8 @@ export default class Alerts extends Component {
   }
 
   dismiss(alert) {
-    const alerts = this.state.alerts;
-
-    // find the index of the alert that was dismissed
-    const index = alerts.indexOf(alert);
-
-    if (index >= 0) {
-      this.setState({
-        // remove the alert from the array
-        alerts: [...alerts.slice(0, index), ...alerts.slice(index + 1)]
-      });
-    }
+    let alerts = this.state.alerts.filter(item => item !== alert);
+    this.setState({alerts: alerts});
   }
 
   render() {

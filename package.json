@@ -8,6 +8,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
+    "font-awesome-animation": "^0.2.0",
     "gh-pages": "^1.0.0",
     "jquery": "^3.2.1",
     "less": "^2.7.3",

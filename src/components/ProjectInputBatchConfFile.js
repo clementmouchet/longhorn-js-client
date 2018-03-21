@@ -99,6 +99,9 @@ export default class ProjectInputBatchConfFile extends Component {
         headline: `Please select a valid BCONF`,
         message: `The selected file is not a .bconf`
       });
+      this.setState({
+        loading: false
+      });
       this.refs.inputBatchConfFile.value = null;
     }
   }
@@ -146,13 +149,18 @@ export default class ProjectInputBatchConfFile extends Component {
             </Collapse>
           </ListGroupItem>
         </OverlayTrigger>
-        <Button componentClass="div" block bsStyle="primary" bsSize="large" className="btn-file" disabled={this.state.loading}>
-          <input type="file"
-                 ref="inputBatchConfFile"
-                 onChange={this.uploadBatchConfFile.bind(this, this.props.project.id)}/>
-          Select Batch Configuration File
-        </Button>
-        {this.state.loading && <ProgressBar ref="progressBar" active={true} now={100} striped={true} label={'Uploading'} />}
+        {
+          !this.state.loading &&
+          <Button componentClass="div" block bsStyle="primary" bsSize="large" className="btn-file" disabled={this.state.loading}>
+            <input type="file"
+                   ref="inputBatchConfFile"
+                   onChange={this.uploadBatchConfFile.bind(this, this.props.project.id)}/>
+            Select Batch Configuration File
+          </Button>
+        }
+        {
+          this.state.loading && <ProgressBar ref="progressBar" active={true} now={100} striped={true} label={'Uploading'} />
+        }
       </ListGroup>
 
     );
