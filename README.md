@@ -1,5 +1,8 @@
 # longhorn-js-client
 
+>## This project is now part of the Okapi Framework
+>### Updates will be committed to [bitbucket.org/okapiframework/longhorn-js-client.git](https://bitbucket.org/okapiframework/longhorn-js-client.git)
+
 A JavaScript Client for Okapi Longhorn API, written using ReactJS & ES6.
 
 It supports all the API features of [Okapi Longhorn](http://okapiframework.org/wiki/index.php?title=Longhorn)
