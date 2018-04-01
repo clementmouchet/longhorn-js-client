@@ -19,9 +19,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:ssh://git@github.com/clementmouchet/longhorn-js-client.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/clementmouchet/longhorn-js-client.git</developerConnection>
-    <url>https://github.com/clementmouchet/longhorn-js-client.git</url>
+    <connection>scm:git:ssh://git@bitbucket.org/okapiframework/longhorn-js-client.git</connection>
+    <developerConnection>scm:git:ssh://git@bitbucket.org/okapiframework/longhorn-js-client.git</developerConnection>
+    <url>https://bitbucket.org/okapiframework/longhorn-js-client.git</url>
     <tag>HEAD</tag>
   </scm>
 
